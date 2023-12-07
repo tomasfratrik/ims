@@ -18,7 +18,6 @@ $(TARGET): $(OBJS)
 %.o: %.cc
 	$(CC) -c $(CPPFLAGS) -MMD -MP $< -o $@
 
-#$(CC) $(CPPFLAGS) -c $< -o $@
 -include $(DEPS)
 
 clean:
