@@ -10,6 +10,7 @@
 class Visualizer {
     public:
         bool no_color_flg = false;
+        bool visulize_stdout_flg = false;
         int width = 0;
         int height = 0;
         std::string cell_symbol;

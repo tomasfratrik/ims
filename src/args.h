@@ -10,6 +10,7 @@ class Args{
         int height = DEFAULT_HEIGHT;
         int timeout = DEFAULT_TIMEOUT;
         bool no_color_flg = false;
+        bool visulize_stdout_flg = false;
         std::string cell_symb = "default";
 
         // constructors

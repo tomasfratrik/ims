@@ -4,7 +4,7 @@
 
 Args::Args(int argc, char** argv) {
     int opt;
-    while((opt = getopt(argc, argv, "nw:h:c:t:")) != -1){
+    while((opt = getopt(argc, argv, "vnw:h:c:t:")) != -1){
         switch(opt) {
             case 'h':
                 this->height = atoi(optarg);
@@ -21,7 +21,9 @@ Args::Args(int argc, char** argv) {
             case 't':
                 this->timeout = atoi(optarg);
                 break;
-            
+            case 'v': 
+                this->visulize_stdout_flg = true;
+                break;
             default:
                 std::cout << "ARG ERROR" << std::endl;
                 exit(1);
