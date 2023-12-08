@@ -38,7 +38,7 @@ if __name__ == "__main__":
                 elif symbol == 'X':
                     data[i, j] = 2.0  # 'X' is blue
 
-        cmap = plt.cm.colors.ListedColormap(['black', 'white', 'blue'])
+        cmap = plt.cm.colors.ListedColormap(['black', 'white', 'red'])
         bounds = [0, 1, 2, 3]
         norm = plt.cm.colors.BoundaryNorm(bounds, cmap.N)
 

@@ -7,6 +7,7 @@
 #define DEFAULT_WIDTH 30
 #define DEFAULT_HEIGHT 30
 #define DEFAULT_TIMEOUT 1000
+#define STONE_PROBABILITY 0
 
 class Args{
 public:
@@ -16,6 +17,7 @@ public:
     bool no_color_flg = false;
     bool visulize_stdout_flg = false;
     std::string cell_symb = "default";
+    int stone_probability = STONE_PROBABILITY;
 
     // constructors
     Args(int argc, char **argv);

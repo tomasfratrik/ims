@@ -66,11 +66,11 @@ void Visualizer::draw_cell(Grid grid, int x, int y) {
             break;
         case CellType::ROOT:
             color_symbol = Const::BLACK;
-            ascii_symbol = ".";
+            ascii_symbol = "@";
             break;
         case CellType::STONE:
             color_symbol = Const::RED;
-            ascii_symbol = ".";
+            ascii_symbol = "X";
             break;
         default:
             std::cout << "VIS ERROR:"<< grid.grid[y][x].type << std::endl;
