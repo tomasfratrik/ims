@@ -1,6 +1,5 @@
 # IMS project
 
-
 ## Root simulation
 
 Grid (soil):

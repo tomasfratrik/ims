@@ -1,23 +1,25 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <thread>
 #include "./visualizer.h"
 
-Visualizer::Visualizer(Args args) {
-    this->width = args.width;
-    this->height = args.height;
-    this->no_color_flg = args.no_color_flg;
-    this->visulize_stdout_flg = args.visulize_stdout_flg;
+Visualizer::Visualizer(Grid grid) {
+    this->width = grid.width;
+    this->height = grid.height;
+    this->no_color_flg = grid.no_color_flg;
+    this->visulize_stdout_flg = grid.visulize_stdout_flg;
     if (!visulize_stdout_flg) {
         this->no_color_flg = true;
     }
 
-    if (args.cell_symb == "default") {
+    if (grid.cell_symb == "default") {
         this->cell_symbol = Const::DEFAULT_CELL_SYMB;
     } 
-    else if (args.cell_symb == "dot") {
+    else if (grid.cell_symb == "dot") {
         this->cell_symbol = Const::DOT;
     }
-    else if (args.cell_symb == "square") {
+    else if (grid.cell_symb == "square") {
         this->cell_symbol = Const::SMALL_SQUARE;
     }
     else {
@@ -25,42 +27,66 @@ Visualizer::Visualizer(Args args) {
     }
 
 }
+void Visualizer::draw_grid(Grid grid) {
+    this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
 
-void Visualizer::draw(std::vector<std::vector<int>> grid) {
-    std::ofstream data_file("./data/data.txt", std::ios::app);
-    std::string color;
-    for(int i = 0; i < this->height; i++) {
-        for(int j = 0; j < this->width; j++) {
-            std::string state;
-            switch(grid[i][j]) {
-                case CellState::DEAD:
-                    this->no_color_flg ? state = "." : state = Const::WHITE + this->cell_symbol + Const::RESET;
-                    break;
-                case CellState::ALIVE:
-                    this->no_color_flg ? state = "@" : state = Const::GREEN + this->cell_symbol + Const::RESET;
-                    break;
-                case CellState::MID:
-                    this->no_color_flg ? state = "X" : state = Const::RED + this->cell_symbol + Const::RESET;
-                    break;
-                default:
-                    // todo
-                    std::cout << "VIS ERROR:"<< grid[i][j] << std::endl;
-                    exit(1);
-            }
+    /* always clear screen to draw new grid if -v */
+    if (visulize_stdout_flg){
+        std::cout << Const::CLEAR_SCREEN;
+    }
 
-            data_file << state; //write state to file
-
-            if (visulize_stdout_flg){
-                std::cout << state;
-            }
+    /* Go thru each cell and decide*/
+    for(int y = 0; y < this->height; y++) {
+        for(int x = 0; x < this->width; x++) {
+            this->draw_cell(grid, x, y);
         }
-        data_file << std::endl; //write newline to file
-
+        this->data_file << std::endl; 
         if (visulize_stdout_flg){
             std::cout << std::endl;
         }
     }
 
-    data_file << std::endl; //separate grids
-    data_file.close();
+    this->data_file << std::endl; //separate grids
+    if (visulize_stdout_flg){
+        std::cout << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(grid.timeout));
+    }
+    this->data_file.close();
+
+
+}
+void Visualizer::draw_cell(Grid grid, int x, int y) {
+    std::string color_symbol;
+    std::string ascii_symbol;
+
+    switch(grid.grid[y][x].type) {
+        case CellType::SOIL:
+            color_symbol = Const::WHITE;
+            ascii_symbol = ".";
+            break;
+        case CellType::ROOT:
+            color_symbol = Const::BLACK;
+            ascii_symbol = ".";
+            break;
+        case CellType::STONE:
+            color_symbol = Const::RED;
+            ascii_symbol = ".";
+            break;
+        default:
+            std::cout << "VIS ERROR:"<< grid.grid[y][x].type << std::endl;
+            exit(1);
+    }
+
+    this->data_file << ascii_symbol;
+
+    /* print to stdout if -v */
+    if (visulize_stdout_flg){
+        if (this->no_color_flg) {
+            color_symbol = "";
+        }
+        else {
+            ascii_symbol = this->cell_symbol;
+        }
+        std::cout << color_symbol << ascii_symbol << Const::RESET;
+    }
 }

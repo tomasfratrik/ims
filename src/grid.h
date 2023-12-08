@@ -1,10 +1,28 @@
 #ifndef __GRID_H__
 #define __GRID_H__
 
-#define DEFAULT_WIDTH 20
-#define DEFAULT_HEIGHT 20
+class Args;
 
-#define DEFAULT_TIMEOUT 1000
+#include <vector>
+#include <string>
+#include "./cell.h"
+
+class Grid {
+public:
+    int width;
+    int height;
+    int timeout;
+    bool no_color_flg;
+    bool visulize_stdout_flg;
+    std::string cell_symb;
+
+    std::vector<std::vector<Cell>> grid;
+
+    // constructor
+    Grid(Args args);
+    void init_grid();
+
+};
 
 
 #endif // __GRID_H__

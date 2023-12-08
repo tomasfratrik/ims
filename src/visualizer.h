@@ -2,6 +2,7 @@
 #ifndef __VISUALIZER_H__
 #define __VISUALIZER_H__
 #include <string>
+#include <iostream>
 #include <vector>
 #include "./cell.h"
 #include "./args.h"
@@ -14,10 +15,16 @@ class Visualizer {
         int width = 0;
         int height = 0;
         std::string cell_symbol;
+        std::ofstream data_file;
+
+
 
         // constructor
-        Visualizer(Args args);
-        void draw(std::vector<std::vector<int>> grid);
+        Visualizer(Grid grid);
+        // void draw(std::vector<std::vector<int>> grid);
+        void draw(Grid grid);
+        void draw_grid(Grid grid);
+        void draw_cell(Grid grid, int x, int y);
 };
 
 #endif // __VISUALIZER_H__

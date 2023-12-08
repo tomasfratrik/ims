@@ -3,35 +3,38 @@
 #include <vector>
 #include <chrono>
 #include <thread>
-#include "./args.h"
-#include "./visualizer.h"
-#include "./const.h"
+#include "./main.h"
 
 void test(Args args) {
+    Grid grid(args);
     Visualizer visualizer(args);
-    std::vector<std::vector<int>> matrix(args.height, std::vector<int>(args.width));
+    // std::vector<std::vector<CellType>> matrix(args.height, std::vector<CellType>(args.width));
 
     std::ofstream data("./data/data.txt");
     data.close();
 
-    int T = 10;
-    while(T--) {
-        if (visualizer.visulize_stdout_flg) {
-            std::cout << Const::CLEAR_SCREEN;
-            std::cout << std::endl;
-        }
+    visualizer.draw_grid(grid);
 
-        for (int i = 0; i < args.height; i++) {
-            for (int j = 0; j < args.width; j++) {
-                matrix[i][j] = rand() % CellState::NO_STATES;
-            }
-        }
-        visualizer.draw(matrix); 
-        if (visualizer.visulize_stdout_flg) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(args.timeout));
-            std::cout << std::endl;
-        }
-    }
+    // int T = 10;
+    // while(T--) {
+    //     if (visualizer.visulize_stdout_flg) {
+    //         std::cout << Const::CLEAR_SCREEN;
+    //         std::cout << std::endl;
+    //     }
+
+    //     for (int y = 0; y < args.height; y++) {
+    //         for (int x = 0; x < args.width; x++) {
+    //             // grid.grid[i][j] = rand() % CellType::NO_TYPES;
+    //             Cell cell(x,y);
+    //             grid.grid[x][y] = cell;
+    //         }
+    //     }
+    //     visualizer.draw(grid); 
+    //     if (visualizer.visulize_stdout_flg) {
+    //         std::this_thread::sleep_for(std::chrono::milliseconds(args.timeout));
+    //         std::cout << std::endl;
+    //     }
+    // }
 }
 
 int main(int argc, char** argv) {

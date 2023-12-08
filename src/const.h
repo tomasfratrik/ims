@@ -3,6 +3,8 @@
 #include <string>
 
 namespace Const {
+    const std::string DATA_FILE_PATH = "./data/data.txt";
+
     const std::string BLACK = "\033[30m";
     const std::string RED = "\033[31m";
     const std::string GREEN = "\033[32m";
