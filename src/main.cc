@@ -6,12 +6,15 @@
 #include "./main.h"
 
 void test(Args args) {
-    Grid grid(args);
-    grid.place_stones();
-    Visualizer visualizer(args);
-
+    // reset file
     std::ofstream data("./data/data.txt");
     data.close();
+
+    Grid grid(args);
+    grid.place_stones();
+    // grid.place_root();
+    Visualizer visualizer(args);
+
 
     visualizer.draw_grid(grid);
 }

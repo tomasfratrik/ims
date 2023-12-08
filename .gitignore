@@ -1,6 +1,7 @@
 main
 .vscode
 data/data.txt
+/data/data.txt
 
 
 ###################
