@@ -12,10 +12,8 @@ void test(Args args) {
 
     Grid grid(args);
     grid.place_stones();
-    // grid.place_root();
+    grid.place_root();
     Visualizer visualizer(args);
-
-
     visualizer.draw_grid(grid);
 }
 

@@ -23,9 +23,13 @@ void Grid::init_grid() {
     }
 }
 
+void Grid::place_root() {
+    this->grid[0][this->width / 2].type = CellType::ROOT;
+}
+
 void Grid::place_stones() {
     /**
-     * @brief Go thru each cell and with
+     * Go thru each cell and with
      * percentage probability place a stone -> change cell
      * type to STONE
      * 

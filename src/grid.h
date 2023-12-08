@@ -24,6 +24,7 @@ public:
     Grid(Args args);
     void init_grid();
     void place_stones();
+    void place_root();
 
 };
 
