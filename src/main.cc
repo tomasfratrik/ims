@@ -20,6 +20,7 @@ void test(Args args) {
 }
 
 int main(int argc, char** argv) {
+    std::srand(time(0));
     Args args(argc, argv);
     test(args);
 
