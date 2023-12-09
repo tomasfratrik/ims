@@ -3,10 +3,12 @@
 #define __VISUALIZER_H__
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include "./cell.h"
 #include "./args.h"
 #include "./const.h"
+#include "./grid.h"
 
 class Visualizer {
     public:
@@ -17,11 +19,8 @@ class Visualizer {
         std::string cell_symbol;
         std::ofstream data_file;
 
-
-
         // constructor
         Visualizer(Grid grid);
-        // void draw(std::vector<std::vector<int>> grid);
         void draw(Grid grid);
         void draw_grid(Grid grid);
         void draw_cell(Grid grid, int x, int y);

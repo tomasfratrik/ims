@@ -6,7 +6,7 @@ class Args;
 #include <vector>
 #include <string>
 #include "./cell.h"
-
+#include "./args.h"
 
 class Grid {
 public:

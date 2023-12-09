@@ -4,22 +4,22 @@
 #include <chrono>
 #include <thread>
 #include "./main.h"
-
-void test(Args args) {
-    // reset file
-    std::ofstream data("./data/data.txt");
-    data.close();
-
-    Grid grid(args);
-    grid.place_stones();
-    grid.place_root();
-    Visualizer visualizer(args);
-    visualizer.draw_grid(grid);
-}
+#include "./simulation.h"
+#include "./macros.h"
 
 int main(int argc, char** argv) {
     Args args(argc, argv);
-    test(args);
+    Grid grid(args);
+    Visualizer visualizer(args);
+    Simulation sim(&args, &grid, &visualizer);
+    sim.run();
+
+    // TODO: do we need clean memory ?, if so
+    // there mby should be a destructors, but im too dumb
+    // for that, idk
+    // for each grid cycle, we don't create more memory (cells)
+    // we just change the state of the cells, so mby we don't need 
+    // to clean memory, but idk
 
     return 0;
 }

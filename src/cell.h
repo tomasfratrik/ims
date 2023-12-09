@@ -11,7 +11,7 @@
 enum CellType {
     SOIL = 0,       
     ROOT = 1,       
-    STONE = 2 ,
+    STONE = 2,
     NO_TYPES,      /* Number of TYPE*/ 
 };
 

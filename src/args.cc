@@ -4,7 +4,7 @@
 
 Args::Args(int argc, char** argv) {
     int opt;
-    while((opt = getopt(argc, argv, "vnw:h:c:t:s:")) != -1){
+    while((opt = getopt(argc, argv, "vnw:h:c:t:s:i:r:")) != -1){
         switch(opt) {
             case 'h':
                 this->height = atoi(optarg);
@@ -27,9 +27,24 @@ Args::Args(int argc, char** argv) {
             case 's':
                 this->stone_probability = atoi(optarg);
                 break;
+            case 'i':
+                this->iterations = atoi(optarg);
+                break;
+            case 'r':
+                this->rule = atoi(optarg);
+                break;
             default:
                 std::cout << "ARG ERROR" << std::endl;
                 exit(1);
         }
     }
+    // todo: check for valid args
+    // is it number? , rule 1-4, etc
+    // for how many rules tehre are us NO_RULES - 1 
+
+    // a aj max iteracie su height -1 
+    // lebo inac by si uz zapisoval pod pole
+
+    // min widht a height aspon 10 ? at tu nemusime riesit nejake
+    // cringe edge cases
 }

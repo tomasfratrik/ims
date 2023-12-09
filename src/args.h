@@ -2,12 +2,13 @@
 #define __ARGS_H__
 
 #include <string>
-#include "./grid.h"
 
 #define DEFAULT_WIDTH 30
 #define DEFAULT_HEIGHT 30
 #define DEFAULT_TIMEOUT 1000
 #define STONE_PROBABILITY 0
+#define DEFAULT_ITERATIONS 100
+#define DEFAULT_RULE 1 
 
 class Args{
 public:
@@ -18,6 +19,8 @@ public:
     bool visulize_stdout_flg = false;
     std::string cell_symb = "default";
     int stone_probability = STONE_PROBABILITY;
+    int iterations = DEFAULT_ITERATIONS;
+    int rule = DEFAULT_RULE;
 
     // constructors
     Args(int argc, char **argv);
