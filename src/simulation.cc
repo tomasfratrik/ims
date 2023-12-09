@@ -9,9 +9,7 @@ Simulation::Simulation(Args *args_param, Grid *grid_param, Visualizer *visualize
     this->grid = grid_param;
     this->visualizer = visualizer_param;
 
-    // todo: I have force iterations for now
-    // make them so they are by default height-1, and also max height-1
-    this->iterations = grid_param->height - 1;
+    this->iterations = args_param->iterations;
     this->rule = (Rule)args_param->rule;
     this->moisture = args_param->moisture;
 }
@@ -91,12 +89,6 @@ void Simulation::update_grid() {
     this->planted_root = false;
     for (int x = 0; x < this->grid->width; x++) {
         // prevent out of bounds seg fault
-        // todo: remove this, and do this checking shile parsing argumets
-        // so u cant have more iterations then rows-1 (height -1)
-        // -h = height, -i = iterations
-        if (this->current_row == this->grid->height - 1) {
-            return;
-        }
         
         CellType current_cell = this->grid->grid[this->current_row][x].type;
         if (current_cell == CellType::STONE) { // skip if stone
