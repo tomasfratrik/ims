@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     std::srand(time(0));
     Args args(argc, argv);
     Grid grid(args);
-    Visualizer visualizer(args);
+    Visualizer visualizer(&grid);
     Simulation sim(&args, &grid, &visualizer);
     sim.run();
 

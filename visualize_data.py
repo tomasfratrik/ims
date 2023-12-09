@@ -44,6 +44,8 @@ if __name__ == "__main__":
 
         ax.imshow(data, cmap=cmap, norm=norm, interpolation='nearest')
 
-        plt.pause(1)
+        # in seconds
+        # so 0.05 is 50ms
+        plt.pause(0.001)
 
     plt.show()

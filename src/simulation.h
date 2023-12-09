@@ -25,11 +25,18 @@ public:
 
     int iterations;
     int current_row = 0;
+    bool found_root_on_row = false;
+    bool planted_root = false;
+    bool stop_simulation = false;
     Rule rule;
 
     // constructor
     Simulation(Args *args_param, Grid *grid_param, Visualizer *visualizer_param);
     CellType determine_cell_type(CellType left, CellType right);
+
+    // rules
+    CellType rule_1(CellType left, CellType right);
+
     void update_grid();
     void run();
 };

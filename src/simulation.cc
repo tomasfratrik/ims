@@ -8,18 +8,15 @@ Simulation::Simulation(Args *args_param, Grid *grid_param, Visualizer *visualize
     this->args = args_param;
     this->grid = grid_param;
     this->visualizer = visualizer_param;
-    // this->iterations = args_param->iterations;
+
+    // todo: I have force iterations for now
+    // make them so they are by default height-1, and also max height-1
     this->iterations = grid_param->height - 1;
     this->rule = (Rule)args_param->rule;
 }
 
-CellType Simulation::determine_cell_type(CellType left, CellType right) {
+CellType Simulation::rule_1(CellType left, CellType right) {
     CellType new_cell_type;
-    // both root -> soil
-    // one of them is root and other is soil -> 90% root, 10% soil
-    // both soil -> soil
-    // one of them rock -> soil
-
     if (left == CellType::ROOT && right == CellType::ROOT) {
         new_cell_type = CellType::SOIL;
     }
@@ -35,9 +32,6 @@ CellType Simulation::determine_cell_type(CellType left, CellType right) {
     else if (left == CellType::SOIL && right == CellType::SOIL) {
         new_cell_type = CellType::SOIL;
     }
-    else if ((left == CellType::STONE && right == CellType::SOIL) || (left == CellType::SOIL && right == CellType::STONE)) {
-        new_cell_type = CellType::SOIL;
-    }
     else {
         new_cell_type = CellType::SOIL;
     }
@@ -45,24 +39,70 @@ CellType Simulation::determine_cell_type(CellType left, CellType right) {
     return new_cell_type;
 }
 
+CellType Simulation::determine_cell_type(CellType left, CellType right) {
+    // we dont know wether left or right is current cell
+    // just to keep in mind
+
+    CellType new_cell_type;
+    switch(this->rule) {
+        case Rule::RULE_1:
+            new_cell_type = this->rule_1(left, right);
+            break;
+    }
+
+    return new_cell_type;
+}
+
 void Simulation::update_grid() {
     // go thru 1 row
+    this->found_root_on_row = false;
+    this->planted_root = false;
     for (int x = 0; x < this->grid->width; x++) {
+        // prevent out of bounds seg fault
+        // todo: remove this, and do this shile parsing argumets
+        // -h = height, -i = iterations
+        if (this->current_row == this->grid->height - 1) {
+            return;
+        }
+        
         CellType current_cell = this->grid->grid[this->current_row][x].type;
+        if (current_cell == CellType::STONE) { // skip if stone
+            continue;
+        }
 
+        // todo: optimize this (nechaj na mna asi)
         // check to right
         if (x < this->grid->width - NEXT_CELL_TO_CHECK_POSITION) {
             CellType next_cell = this->grid->grid[this->current_row][x+NEXT_CELL_TO_CHECK_POSITION].type;
             CellType new_cell_type = this->determine_cell_type(current_cell, next_cell);
-            this->grid->grid[this->current_row+1][x+1].type = new_cell_type;
+            CellType *to_change = &this->grid->grid[this->current_row+1][x+1].type;
+            if (*to_change != CellType::STONE){ // never change stone
+                *to_change = new_cell_type;
+                if (new_cell_type == CellType::ROOT) {
+                    this->planted_root = true;
+                }
+            }
         }
 
         // check left
         if (x > 1) {
             CellType prev_cell = this->grid->grid[this->current_row][x-NEXT_CELL_TO_CHECK_POSITION].type;
             CellType new_cell_type = this->determine_cell_type(prev_cell, current_cell);
-            this->grid->grid[this->current_row+1][x-1].type = new_cell_type;
+            CellType *to_change = &this->grid->grid[this->current_row+1][x-1].type;
+            if (*to_change != CellType::STONE){
+                *to_change = new_cell_type;
+                if (new_cell_type == CellType::ROOT) {
+                    this->planted_root = true;
+                }
+            }
         }
+
+    }
+    if (!this->planted_root) {
+        // if root is not planted, stop simulation
+        // probably blocked by stone
+        this->stop_simulation = true;
+        return;
     }
 }
 
@@ -73,18 +113,16 @@ void Simulation::run() {
 
     this->grid->place_stones();
     this->grid->place_root();
-    this->visualizer->draw_grid(*this->grid);
+    // this->visualizer->draw_grid(this->grid);
 
     // optimized and max iterations are height-1
     for (int i = 0; i < this->iterations; i++) {
+        this->visualizer->draw_grid(this->grid);
         this->update_grid();
-        this->visualizer->draw_grid(*this->grid);
-
-        // if -v flag is not set, we don't want to wait
-        if (this-grid->visulize_stdout_flg) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(this->grid->timeout));
-        }
         this->current_row++;
-    }
 
+        if (this->stop_simulation) {
+            break;
+        }
+    }
 }

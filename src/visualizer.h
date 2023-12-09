@@ -20,10 +20,10 @@ class Visualizer {
         std::ofstream data_file;
 
         // constructor
-        Visualizer(Grid grid);
+        Visualizer(Grid *grid);
         void draw(Grid grid);
-        void draw_grid(Grid grid);
-        void draw_cell(Grid grid, int x, int y);
+        void draw_grid(Grid *grid);
+        void draw_cell(Grid *grid, int x, int y);
 };
 
 #endif // __VISUALIZER_H__
