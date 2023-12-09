@@ -10,6 +10,7 @@
 #define STONE_PROBABILITY 0
 #define DEFAULT_ITERATIONS (DEFAULT_HEIGHT - 1)
 #define DEFAULT_RULE 1 
+#define DEFAULT_MOISTURE_ROOTS 0 
 
 class Args{
 public:
@@ -23,6 +24,7 @@ public:
     int iterations = DEFAULT_ITERATIONS;
     int rule = DEFAULT_RULE;
     float moisture = DEFAULT_MOISTURE;
+    int moisture_roots_to_plant = DEFAULT_MOISTURE_ROOTS;
 
     // constructors
     Args(int argc, char **argv);

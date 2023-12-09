@@ -17,6 +17,8 @@ public:
     bool visulize_stdout_flg;
     std::string cell_symb;
     int stone_probability;
+    int moisture_roots_to_plant;
+    float moisture;
 
     std::vector<std::vector<Cell>> grid;
 
@@ -25,6 +27,12 @@ public:
     void init_grid();
     void place_stones();
     void place_root();
+    void place_moisture_roots();
+    void expand_moisture();
+    bool cells_have_same_moisture_root(Cell *cell_1, Cell *cell_2);
+    void expand_moisture_root(Cell *moisture_root);
+    bool is_cell_in_vector(Cell *cell, std::vector<Cell*> vector_list);
+    void expand_moisture_cell(Cell *cell);
 
 };
 

@@ -58,10 +58,28 @@ void Visualizer::draw_grid(Grid *grid) {
 void Visualizer::draw_cell(Grid *grid, int x, int y) {
     std::string color_symbol;
     std::string ascii_symbol;
+    float m = grid->grid[y][x].moisture;
 
     switch(grid->grid[y][x].type) {
         case CellType::SOIL:
-            color_symbol = Const::WHITE;
+            // color_symbol = Const::WHITE;
+            // check moisture 1-2
+            if (m <= 1) {
+                color_symbol = Const::WHITE;
+            }
+            else if (m <= 1.29) {
+                color_symbol = Const::SKY_BLUE;
+            }
+            else if (m <= 1.49) {
+                color_symbol = Const::CYAN;
+            }
+            else if (m <= 1.69) {
+                color_symbol = Const::LIGHT_BLUE;
+            }
+            else {
+                color_symbol = Const::BLUE;
+            }
+       
             ascii_symbol = ".";
             break;
         case CellType::ROOT:

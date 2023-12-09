@@ -15,10 +15,11 @@ Simulation::Simulation(Args *args_param, Grid *grid_param, Visualizer *visualize
 }
 
 float Simulation::calculate_moisture(int base) {
-    float new_base = base * this->moisture;  
-    if (new_base > 100) new_base = 100;
-    if (new_base < 0) new_base = 0;
-    return new_base;
+    // float new_base = base * this->moisture;  
+    // if (new_base > 100) new_base = 100;
+    // if (new_base < 0) new_base = 0;
+    // return new_base;
+    return base;
 }
 
 CellType Simulation::root_if_hit(int percentage) {
@@ -131,13 +132,16 @@ void Simulation::update_grid() {
     }
 }
 
+
 void Simulation::run() {
     // reset file, isnt there better way?
     this->visualizer->data_file.open(Const::DATA_FILE_PATH);
     this->visualizer->data_file.close();
 
-    this->grid->place_stones();
-    this->grid->place_root();
+    // this->grid->place_stones();
+    this->grid->place_moisture_roots();
+    this->grid->expand_moisture();
+    // this->grid->place_root();
 
     for (int i = 0; i < this->iterations; i++) {
         this->visualizer->draw_grid(this->grid);

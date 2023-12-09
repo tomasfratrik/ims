@@ -6,7 +6,7 @@
 Args::Args(int argc, char** argv) {
     int opt;
     try {
-        while((opt = getopt(argc, argv, "vnw:h:c:t:s:i:r:m:")) != -1){
+        while((opt = getopt(argc, argv, "vnw:h:c:t:s:i:r:m:p:")) != -1){
             switch(opt) {
                 case 'h':
                     this->height = std::stoi(optarg);
@@ -52,10 +52,13 @@ Args::Args(int argc, char** argv) {
                     break;
                 case 'm':
                     this->moisture = std::stof(optarg);
-                    if (this->moisture < 0 || this->moisture > 2){
-                        std::cout << "Moisture needs to be between 0 and 1!" << std::endl;
+                    if (this->moisture < 1 || this->moisture > 2){
+                        std::cout << "Moisture needs to be between 1 and 2!" << std::endl;
                         std::cout << "Using default moisture: " << DEFAULT_MOISTURE << std::endl;
                     }
+                    break;
+                case 'p':
+                    this->moisture_roots_to_plant = std::stoi(optarg);
                     break;
                 default:
                     std::cout << "ARG ERROR" << std::endl;

@@ -21,6 +21,10 @@ public:
     CellType prev_type;
     CellType type;
     float moisture;
+    bool is_moisture_root = false;
+
+    // wo which root this cell belongs if it is moisture soil
+    std::pair<int, int> moisture_root_pos;
 
     // constructor
     Cell(int x, int y);

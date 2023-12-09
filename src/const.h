@@ -9,11 +9,16 @@ namespace Const {
     const std::string RED = "\033[31m";
     const std::string GREEN = "\033[32m";
     const std::string YELLOW = "\033[33m";
-    const std::string BLUE = "\033[34m";
     const std::string MAGENTA = "\033[35m";
-    const std::string CYAN = "\033[36m";
     const std::string WHITE = "\033[37m";
     const std::string RESET = "\033[0m";
+
+
+    // moisture
+    const std::string BLUE = "\033[34m";            // 1 darkest
+    const std::string LIGHT_BLUE = "\033[94m";      // 2
+    const std::string CYAN = "\033[36m";            // 3
+    const std::string SKY_BLUE = "\033[38;5;117m";  // 4 palest
 
     const std::string CLEAR_SCREEN =  "\033[H\033[2J";
 
