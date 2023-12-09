@@ -16,6 +16,8 @@ Simulation::Simulation(Args *args_param, Grid *grid_param, Visualizer *visualize
 }
 
 CellType Simulation::rule_1(CellType left, CellType right) {
+    // nice spaghetti code
+    // cant be bothered to make it better it is 3am rn
     CellType new_cell_type;
     if (left == CellType::ROOT && right == CellType::ROOT) {
         new_cell_type = CellType::SOIL;
@@ -41,7 +43,7 @@ CellType Simulation::rule_1(CellType left, CellType right) {
 
 CellType Simulation::determine_cell_type(CellType left, CellType right) {
     // we dont know wether left or right is current cell
-    // just to keep in mind
+    // just to keep that in mind
 
     CellType new_cell_type;
     switch(this->rule) {
@@ -59,7 +61,8 @@ void Simulation::update_grid() {
     this->planted_root = false;
     for (int x = 0; x < this->grid->width; x++) {
         // prevent out of bounds seg fault
-        // todo: remove this, and do this shile parsing argumets
+        // todo: remove this, and do this checking shile parsing argumets
+        // so u cant have more iterations then rows-1 (height -1)
         // -h = height, -i = iterations
         if (this->current_row == this->grid->height - 1) {
             return;
@@ -107,15 +110,13 @@ void Simulation::update_grid() {
 }
 
 void Simulation::run() {
-    // reset file
+    // reset file, isnt there better way?
     this->visualizer->data_file.open(Const::DATA_FILE_PATH);
     this->visualizer->data_file.close();
 
     this->grid->place_stones();
     this->grid->place_root();
-    // this->visualizer->draw_grid(this->grid);
 
-    // optimized and max iterations are height-1
     for (int i = 0; i < this->iterations; i++) {
         this->visualizer->draw_grid(this->grid);
         this->update_grid();
