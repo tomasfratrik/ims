@@ -2,6 +2,7 @@
 #define __ARGS_H__
 
 #include <string>
+#include "./cell.h"
 
 #define DEFAULT_WIDTH 30
 #define DEFAULT_HEIGHT 30
@@ -21,6 +22,7 @@ public:
     int stone_probability = STONE_PROBABILITY;
     int iterations = DEFAULT_ITERATIONS;
     int rule = DEFAULT_RULE;
+    float moisture = DEFAULT_MOISTURE;
 
     // constructors
     Args(int argc, char **argv);

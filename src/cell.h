@@ -4,9 +4,9 @@
 #include <string>
 #include <utility>
 
-#define DEFAULT_MOISTURE 1
-#define MAX_MOISTURE 2 
-#define MIN_MOISTURE 0
+#define DEFAULT_MOISTURE 1.0
+#define MAX_MOISTURE 2.0 
+#define MIN_MOISTURE 0.0
 
 enum CellType {
     SOIL = 0,       

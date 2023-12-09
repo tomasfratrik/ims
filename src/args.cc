@@ -1,10 +1,11 @@
 #include <iostream>
 #include <unistd.h>
+#include <string>
 #include "./args.h"
 
 Args::Args(int argc, char** argv) {
     int opt;
-    while((opt = getopt(argc, argv, "vnw:h:c:t:s:i:r:")) != -1){
+    while((opt = getopt(argc, argv, "vnw:h:c:t:s:i:r:m:")) != -1){
         switch(opt) {
             case 'h':
                 this->height = atoi(optarg);
@@ -32,6 +33,9 @@ Args::Args(int argc, char** argv) {
                 break;
             case 'r':
                 this->rule = atoi(optarg);
+                break;
+            case 'm':
+                this->moisture = std::stof(optarg);
                 break;
             default:
                 std::cout << "ARG ERROR" << std::endl;

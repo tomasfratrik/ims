@@ -24,6 +24,7 @@ public:
 
 
     int iterations;
+    float moisture;
     int current_row = 0;
     bool found_root_on_row = false;
     bool planted_root = false;
@@ -33,9 +34,17 @@ public:
     // constructor
     Simulation(Args *args_param, Grid *grid_param, Visualizer *visualizer_param);
     CellType determine_cell_type(CellType left, CellType right);
+    float calculate_moisture(int base);
+    CellType root_if_hit(int percentage);
 
     // rules
-    CellType rule_1(CellType left, CellType right);
+    CellType cond_1();
+    CellType cond_2();
+    CellType cond_4();
+    // CellType cond_1(CellType left, CellType right);
+    // CellType rule_2(CellType left, CellType right);
+    // CellType rule_3(CellType left, CellType right);
+    // CellType rule_4(CellType left, CellType right);
 
     void update_grid();
     void run();

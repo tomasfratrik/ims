@@ -13,32 +13,56 @@ Simulation::Simulation(Args *args_param, Grid *grid_param, Visualizer *visualize
     // make them so they are by default height-1, and also max height-1
     this->iterations = grid_param->height - 1;
     this->rule = (Rule)args_param->rule;
+    this->moisture = args_param->moisture;
 }
 
-CellType Simulation::rule_1(CellType left, CellType right) {
-    // nice spaghetti code
-    // cant be bothered to make it better it is 3am rn
+float Simulation::calculate_moisture(int base) {
+    float new_base = base * this->moisture;  
+    if (new_base > 100) new_base = 100;
+    if (new_base < 0) new_base = 0;
+    return new_base;
+}
+
+CellType Simulation::root_if_hit(int percentage) {
+    int random_number = rand() % 100 + 1;
+    if (random_number <= this->calculate_moisture(percentage)) {
+        return CellType::ROOT;
+    }
+    else {
+        return CellType::SOIL;
+    }
+}
+
+CellType Simulation::cond_1() {
     CellType new_cell_type;
-    if (left == CellType::ROOT && right == CellType::ROOT) {
-        new_cell_type = CellType::SOIL;
+    if(this->rule == Rule::RULE_4){
+        new_cell_type = CellType::ROOT;
     }
-    else if ((left == CellType::ROOT && right == CellType::SOIL) || (left == CellType::SOIL && right == CellType::ROOT)) {
-        int random_number = rand() % 100 + 1;
-        if (random_number <= 90) {
-            new_cell_type = CellType::ROOT;
-        }
-        else {
-            new_cell_type = CellType::SOIL;
-        }
-    }
-    else if (left == CellType::SOIL && right == CellType::SOIL) {
-        new_cell_type = CellType::SOIL;
+    else if (this->rule == Rule::RULE_3){
+        new_cell_type = this->root_if_hit(70);
     }
     else {
         new_cell_type = CellType::SOIL;
     }
-
     return new_cell_type;
+}
+
+CellType Simulation::cond_2() {
+    CellType new_cell_type;
+    if(this->rule == Rule::RULE_1){
+        new_cell_type = this->root_if_hit(90);
+    }
+    else if (this->rule == Rule::RULE_2){
+        new_cell_type = this->root_if_hit(70);
+    }
+    else {
+        new_cell_type = this->root_if_hit(60);
+    }
+    return new_cell_type;
+}
+CellType Simulation::cond_4() {
+    CellType new_cell_type;
+    return CellType::SOIL;
 }
 
 CellType Simulation::determine_cell_type(CellType left, CellType right) {
@@ -46,12 +70,18 @@ CellType Simulation::determine_cell_type(CellType left, CellType right) {
     // just to keep that in mind
 
     CellType new_cell_type;
-    switch(this->rule) {
-        case Rule::RULE_1:
-            new_cell_type = this->rule_1(left, right);
-            break;
+    if (BOTH_ROOTS) {
+        new_cell_type = this->cond_1();
     }
-
+    else if (ONE_ROOT_ONE_SOIL) {
+        new_cell_type = this->cond_2();
+    }
+    else if (BOTH_SOILS) {
+        new_cell_type = this->cond_4();
+    }
+    else { // presence of stone or smth else
+        new_cell_type = CellType::SOIL;
+    }
     return new_cell_type;
 }
 
