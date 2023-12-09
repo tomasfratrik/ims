@@ -8,6 +8,7 @@
 #include "./macros.h"
 
 int main(int argc, char** argv) {
+    std::srand(time(0));
     Args args(argc, argv);
     Grid grid(args);
     Visualizer visualizer(args);
