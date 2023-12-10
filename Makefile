@@ -2,6 +2,11 @@
 CC = g++
 CPPLAGS = -std=c++2a
 CPPLAGS_DBG = -std=c++2a -DDEBUG -g
+LOGIN1=xfratr01
+LOGIN2=xjesko01
+TASK=07
+ZIP_NAME=$(TASK)_$(LOGIN1)_$(LOGIN2).zip
+
 
 TARGET = main
 
@@ -33,10 +38,13 @@ dbg: $(OBJS)
 -include $(DEPS)
 
 clean:
-	rm -f $(TARGET) $(OBJS) $(DEPS)
+	rm -f $(TARGET) $(OBJS) $(DEPS) $(ZIP_NAME)
 
 tar:
 	tar -cvf project.tar $(SRCS) $(DEPS) Makefile
+zip: clean
+	@echo "Zipping into: $(ZIP_NAME)"
+	zip  -r $(ZIP_NAME) *
 
 todo: # search for TODOs in the code
 	grep -n -r -i --color=auto "TODO" src/ 
