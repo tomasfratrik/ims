@@ -1,3 +1,6 @@
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
+
 #ifndef __ARGS_H__
 #define __ARGS_H__
 

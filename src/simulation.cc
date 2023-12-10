@@ -1,3 +1,5 @@
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
 #include <chrono>
 #include <thread>
 #include "./simulation.h"

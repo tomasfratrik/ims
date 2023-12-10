@@ -1,3 +1,5 @@
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
 #include <iostream>
 #include "./grid.h"
 #include "./args.h"
@@ -48,17 +50,6 @@ void Grid::place_moisture_roots() {
         this->grid[random_height][random_width].moisture_root_pos = std::make_pair(random_height, random_width);
     }
 }
-bool Grid::is_cell_in_vector(Cell *cell, std::vector<Cell*> vector_list) {
-    int x = cell->pos.first;
-    int y = cell->pos.second;
-    for (int i = 0; i < vector_list.size(); i++) {
-        if (vector_list[i]->pos.first == x && vector_list[i]->pos.second == y) {
-            return true;
-        }
-    }
-    return false;
-}
-
 
 bool isWaterRootsChild(int rootx, int rooty, int x, int y){
     return (rootx == x && rooty == y);

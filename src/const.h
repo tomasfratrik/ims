@@ -1,3 +1,5 @@
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
 #ifndef _CONST_H_
 #define _CONST_H_
 #include <string>
@@ -15,11 +17,7 @@ namespace Const {
     const std::string GRAY = "\033[38;2;128;128;128m";
 
 
-    // moisture
-    // const std::string BLUE = "\033[34m";            // 1 darkest
-    // const std::string LIGHT_BLUE = "\033[94m";      // 2
-    // const std::string CYAN = "\033[36m";            // 3
-    // const std::string SKY_BLUE = "\033[38;5;117m";  // 4 palest
+    // Soil moisture
     const std::string BROWN_SOIL = "\033[38;2;191;128;64m";
     const std::string BROWN_1 = "\033[38;2;172;115;57m";
     const std::string BROWN_2 = "\033[38;2;153;102;51m";

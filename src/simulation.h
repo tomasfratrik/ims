@@ -1,3 +1,5 @@
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
 #ifndef __SIMULATION_H__
 #define __SIMULATION_H__
 
@@ -33,22 +35,20 @@ public:
 
     // constructor
     Simulation(Args *args_param, Grid *grid_param, Visualizer *visualizer_param);
-    // CellType determine_cell_type(CellType left, CellType right);
+
     CellType determine_cell_type(Cell* left, Cell* right, Cell *to_change);
     float calculate_moisture(int base);
     CellType root_if_hit(int percentage);
 
-    // rules
+    // conditions for rules
     CellType cond_1(Cell *to_change);
     CellType cond_2(Cell *to_change);
-    // CellType cond_4(Cell *to_change);
     CellType cond_4();
-    // CellType cond_1(CellType left, CellType right);
-    // CellType rule_2(CellType left, CellType right);
-    // CellType rule_3(CellType left, CellType right);
-    // CellType rule_4(CellType left, CellType right);
 
+    // update whole grid
     void update_grid();
+
+    // run program from main
     void run();
 };
 

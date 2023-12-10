@@ -1,4 +1,5 @@
-
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
 #include <iostream>
 #include <iomanip>
 #include <fstream>  // For file handling

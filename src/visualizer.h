@@ -1,4 +1,5 @@
-
+// Implementation of celluar automata
+// authors: Tomas Fratrik (xfratr01), Patrik Jezko (xjesko01)
 #ifndef __VISUALIZER_H__
 #define __VISUALIZER_H__
 #include <string>
@@ -21,10 +22,13 @@ class Visualizer {
 
         // constructor
         Visualizer(Grid *grid);
+
+        /* Draw to data file */
         void draw(Grid grid);
         void draw_grid(Grid *grid);
         void draw_cell(Grid *grid, int x, int y);
         void draw_grid_row(Grid *grid, int row);
+        /********************/
 
 };
 
