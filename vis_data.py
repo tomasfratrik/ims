@@ -72,6 +72,8 @@ if __name__ == "__main__":
             add_frame(buffer_grid)
             frames.append([row.copy() for row in buffer_grid])
 
+    plt.show()
+
     num_frames = len(frames)
     interval = 100
     animation_fig, animation_ax = plt.subplots()
@@ -86,8 +88,9 @@ if __name__ == "__main__":
     )
 
     # Save animation as a GIF file
-    output_file = gif_path
-    ani.save(output_file, writer='pillow')
-    print(f"Saved animation as '{output_file}'")
-
-    # plt.show()
+    try:
+        output_file = gif_path
+        ani.save(output_file, writer='pillow')
+        print(f"Saved animation as '{output_file}'")
+    except:
+        print("Error saving animation")

@@ -145,10 +145,7 @@ void Simulation::update_grid() {
 
 void Simulation::run() {
     // reset file, isnt there better way?
-    // this->visualizer->data_file.open(Const::DATA_FILE_PATH);
-    // this->visualizer->data_file.close();
-
-    this->visualizer->data_file.open("data/data2.txt");
+    this->visualizer->data_file.open(Const::DATA_FILE_PATH);
     this->visualizer->data_file.close();
 
     this->grid->place_stones();

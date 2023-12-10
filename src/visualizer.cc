@@ -27,9 +27,9 @@ Visualizer::Visualizer(Grid *grid) {
     }
 
 }
+
 void Visualizer::draw_grid(Grid *grid) {
-    // this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
-    this->data_file.open("data/data2.txt", std::ios::app);
+    this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
 
     /* always clear screen to draw new grid if -v */
     if (visulize_stdout_flg){
@@ -47,19 +47,13 @@ void Visualizer::draw_grid(Grid *grid) {
         }
     }
 
-    // this->data_file << std::endl; //separate grids
-    if (visulize_stdout_flg){
-        std::cout << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(grid->timeout));
-    }
     this->data_file.close();
 
 
 }
 
 void Visualizer::draw_grid_row(Grid *grid, int row) {
-    // this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
-    this->data_file.open("data/data2.txt", std::ios::app);
+    this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
 
     this->data_file << std::endl; 
     /* Go thru each cell and decide*/
@@ -83,7 +77,6 @@ void Visualizer::draw_cell(Grid *grid, int x, int y) {
 
     switch(grid->grid[y][x].type) {
         case CellType::SOIL:
-            // color_symbol = Const::WHITE;
             // check moisture 1-2
             if (m <= 1) {
                 color_symbol = Const::BROWN_SOIL;
