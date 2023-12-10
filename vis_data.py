@@ -47,10 +47,10 @@ if __name__ == "__main__":
     # Parse grid
     lines_read = 0
     for line in lines:
-        lines_read += 1
         line = line.strip()
         if line:
             starting_grid.append([int(c) for c in line])
+            lines_read += 1
         else:
             add_frame(starting_grid)
             break
@@ -67,8 +67,8 @@ if __name__ == "__main__":
     for line in lines:
         line = line.strip()
         if line:
-            buffer_grid[current_row] = [int(c) for c in line]
             current_row += 1
+            buffer_grid[current_row] = [int(c) for c in line]
             add_frame(buffer_grid)
             frames.append([row.copy() for row in buffer_grid])
 
