@@ -2,8 +2,8 @@
 CC = g++
 CPPLAGS = -std=c++2a
 CPPLAGS_DBG = -std=c++2a -DDEBUG -g
-LOGIN1=xfratr01
-LOGIN2=xjesko01
+LOGIN1=xjesko01
+LOGIN2=xfratr01
 TASK=07
 ZIP_NAME=$(TASK)_$(LOGIN1)_$(LOGIN2).zip
 
@@ -42,9 +42,10 @@ clean:
 
 tar:
 	tar -cvf project.tar $(SRCS) $(DEPS) Makefile
+
 zip: clean
 	@echo "Zipping into: $(ZIP_NAME)"
-	zip  -r $(ZIP_NAME) *
+	zip  -r $(ZIP_NAME) --exclude=.vscode/* --exclude=documentation/* --exclude=.gitignore *
 
 todo: # search for TODOs in the code
 	grep -n -r -i --color=auto "TODO" src/ 
