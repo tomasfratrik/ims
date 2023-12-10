@@ -65,33 +65,33 @@ void Visualizer::draw_cell(Grid *grid, int x, int y) {
             // color_symbol = Const::WHITE;
             // check moisture 1-2
             if (m <= 1) {
-                color_symbol = Const::WHITE;
+                color_symbol = Const::BROWN_SOIL;
                 ascii_symbol = ".";
             }
             else if (m <= 1.29) {
-                color_symbol = Const::SKY_BLUE;
+                color_symbol = Const::BROWN_1;
                 ascii_symbol = "1";
             }
             else if (m <= 1.49) {
-                color_symbol = Const::CYAN;
+                color_symbol = Const::BROWN_2;
                 ascii_symbol = "2";
             }
             else if (m <= 1.69) {
-                color_symbol = Const::LIGHT_BLUE;
+                color_symbol = Const::BROWN_3;
                 ascii_symbol = "3";
             }
             else {
-                color_symbol = Const::BLUE;
+                color_symbol = Const::BROWN_4;
                 ascii_symbol = "4";
             }
        
             break;
         case CellType::ROOT:
-            color_symbol = Const::BLACK;
+            color_symbol = Const::GREEN;
             ascii_symbol = "@";
             break;
         case CellType::STONE:
-            color_symbol = Const::RED;
+            color_symbol = Const::GRAY;
             ascii_symbol = "X";
             break;
         default:

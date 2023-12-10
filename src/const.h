@@ -12,13 +12,19 @@ namespace Const {
     const std::string MAGENTA = "\033[35m";
     const std::string WHITE = "\033[37m";
     const std::string RESET = "\033[0m";
+    const std::string GRAY = "\033[38;2;128;128;128m";
 
 
     // moisture
-    const std::string BLUE = "\033[34m";            // 1 darkest
-    const std::string LIGHT_BLUE = "\033[94m";      // 2
-    const std::string CYAN = "\033[36m";            // 3
-    const std::string SKY_BLUE = "\033[38;5;117m";  // 4 palest
+    // const std::string BLUE = "\033[34m";            // 1 darkest
+    // const std::string LIGHT_BLUE = "\033[94m";      // 2
+    // const std::string CYAN = "\033[36m";            // 3
+    // const std::string SKY_BLUE = "\033[38;5;117m";  // 4 palest
+    const std::string BROWN_SOIL = "\033[38;2;191;128;64m";
+    const std::string BROWN_1 = "\033[38;2;172;115;57m";
+    const std::string BROWN_2 = "\033[38;2;153;102;51m";
+    const std::string BROWN_3 = "\033[38;2;134;89;45m";
+    const std::string BROWN_4 = "\033[38;2;96;64;32m";
 
     const std::string CLEAR_SCREEN =  "\033[H\033[2J";
 

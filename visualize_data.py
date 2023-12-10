@@ -46,7 +46,7 @@ if __name__ == "__main__":
                 elif symbol == '4':
                     data[i, j] = 6.0 
 
-        cmap = plt.cm.colors.ListedColormap(['black', 'white', 'red', '#B3D9FF','#99CCFF' , '#6699FF', '#0000CC' ])
+        cmap = plt.cm.colors.ListedColormap(['green', '#bf8040', 'grey','#ac7339' ,'#996633','#86592d' , '#604020'] )
         bounds = [0, 1, 2, 3, 4, 5, 6, 7]
         norm = plt.cm.colors.BoundaryNorm(bounds, cmap.N)
 
