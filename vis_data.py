@@ -36,6 +36,7 @@ if __name__ == "__main__":
 
     file_path = args.file
     gif_path = args.gif
+    print(f"After visualization is done, close it manualy, and next the animation will be saved to {gif_path}")
 
     with open(file_path, 'r') as file:
         lines = file.readlines()

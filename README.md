@@ -1,25 +1,53 @@
-# IMS project
+# IMS project - Cellular automaton in the field of ecology
+## Authors: 
+* Tomáš Frátrik (xfratr01)
+* Patrik Ješko (xjesko01)
+## Usage
 
-## Root simulation
+For visualization, python script is used, `vis_data.py`.
+If using `ssh`, for visualization `-Y` parameter with `ssh` is needed for window forwarding
+else only `gif` of animation will be saved
 
-Grid (soil):
-- def Init();
-    - spawn rocks, set moisture, set root base...
+compile project with `make`
+`$ ./main [arguments]`
+ Arguments (all arguments are mandatory, if not used defaults will be user, still recomemdet to set width and height):
+    * `-h <number>` set height of the grid
+    * `-w <number>` set width of the grid
+    * `-r <number>` set rule (1-4) (default 1)
+    * `-s <number>` set number in % of rocks occupation (recomended low number, e.g 1) (default 0) 
+    * `-m <number>` set moisture, float `<1.0, 2,0>` (does nothing without `-p`)
+    * `-p <number>` how many moisture roots will be planted (default 0) (must be used with `-m`)
+    * `-i <number>` how many iterations (default height)
 
-Cell (dirt):
-- int position;
-- float moisture = default 0.5 else form flag
+### Examples: 
+```./main```
+```./main -h 50 - w 50```
+```./main -h 70 - w 70 -s 1 -m 2 -p 4```
 
-Cell (rock):
-- int position;
-- float moisture = 0;
+## Make Targets
+* `make`: compile program 
+* `make run`: comiple program, run progran with set arguments, run visualization
+* `make todo`: show where todos in code occur
+* `make clean`: clean files
 
-Cell (root):
-- int position;
-- def 
+## Requirements
+* `g++`
+* `make`
+* `python3`
+    * `matplotlib`
+    * `numpy`
 
-### Links
+## File structure
+.
+├── `Makefile`: Makefile of this project
+├── `README.md`: this readme
+├── `data`: data.txt from program, and gif after visualization placed here
+├── `documentation`: contains, testet files, with outputs `.txt` `.gif` `.png`
+├── `vis_data.py`: visualization script
+└── `src`: all source files
 
-[HOW TO MODEL THE BRANCHING GROWTH PATTERNS OF ROOT](https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667099X71187/1-s2.0-S1474667017569578/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEYaCXVzLWVhc3QtMSJHMEUCIQDqqSCd3K%2FOFhcKCfXsll5Hxo1a33o1Kglq9tArdkchwwIgZJCGckQnK2JFKlfxQMu7o2XZaSdWnHKShIcAm4H%2FrQYquwUIrv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgwwNTkwMDM1NDY4NjUiDITqEVENvAqHuS8kDyqPBfES3dv33fjWwnRybIETtjqBxI2X27wMlSj4TTfLJX%2F7k%2B88TdvEebtpg1zg5Cx6XHQ32ywermzN%2BILnPB8GudEspkI4HLUbeA1eYKZIV6qhotwPkNBMvBwzIIX6Hqyk%2BWITrv87jJ6ET2Uyo60j1u2jxOnRSgHjsMZXTSLk5GNeOODhZwCFlcHUcoiu3VhZf%2BM%2FXB06QV9%2BBtIkD9wc75YeX21Erd2QAYByj5%2F6bXFWGfsXR8MNCc%2FqDvaqFbxJHTxe2Esed8Zazz14kOmnbtYOimpzmR0pfmeuc3XUaWU0hJrBmN1xxr98fdxzLDUUhc6okHXf%2B5%2FLTVKg%2B2Duk1W7J5SQE3ZJEHkaBfVGjClRkpu4QIOE6rsjhStoO1vuh3oqnBsJfzotiavZl0tbr83RWCrqS2Crp50rRbQuQxsN0UGq94cFplonqjrPpKM%2BfvKV%2F%2FsD4OHxaPaoY4og3HluftxvU%2BwTxXS9k6h9i%2BcKqac8vBgs2N38d5Fr%2BmT3fEOx1FSQHIM968yWvrF5Fosx%2BNu89gzAwB4shbDAO%2FawpuU0XAc9W2G1zNuekJq5C%2BwH1BRA98ZjBDQux3KPtnIfJpcXqgycSpqMdih2pWuXA7l%2FLq66qT7nMqQMVSnI1hsTmj75AoB9DqErdRZ5leVitV%2B%2BrhdjEvUmtW4otFootwdSEdF3gZBUwM9JoxoG05KK%2BtOPTXoKdLUAZTXxLLV0Sji6HEPxG6IIyIOQnqPzUuKYDmwJ6DacJRyIYqNFHrwOxjVtH7eok%2Fc%2FQdI6q4RF80d2kCyiFTAWyio%2B6MzRomAtsWwMWlwr2nfkTZKI2yc611aLvbEYam9k6UWtKRNnTZPeBVVfcvoJYkD7nHUw6u7IqwY6sQHP8Yj32LtycDP4BogFsyZP%2Bc4YsVyIYuKxGU0S36ygzwN6qlySjVsFwyPdgSSuCqo70%2FCcCBoVVojrvOiSvsogBdQIML86pcl9DecRsfki9KTRtq44M7XW9cFr29w4mowoiX93IaW19MBgPjFL1GZhZmBaErJtllNrypfZy2cwrGoqlJMoK%2B%2FS7JR2JYsATQg3U%2FwFhr3BlWlREVwza68fPckhjaj%2B3xtmq9C4A1Y3VMI%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231207T214725Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTYSVM2U5UX%2F20231207%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=52e53f622a67524aca2a03d531aa36881c69e571044fd28d86c1af04bfb4ba62&hash=e035ad65f4310490641f60aebbb5a0fa2fd0bc8bf82bfe153d4263e562a4d426&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S1474667017569578&tid=spdf-ae6060bd-84b9-401e-859c-afb18d9d5581&sid=738554af82b7484c2b1a54708bd5ce19c97agxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=191f5652550005515902&rr=831ff78c8cf7b377&cc=cz)
 
-[Simulation of Root Forms Using Cellular Automata Model](https://watermark.silverchair.com/070013_1_online.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAABYEwggV9BgkqhkiG9w0BBwagggVuMIIFagIBADCCBWMGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMgB2q2ZqxQHJ6xhGzAgEQgIIFNFc4mX8fKG4WqeTzUwV-oy6oKUOy70tiVAxdVjhRWo5Y7EELpzimjrO7JCW3aklq7u2MWG7BGcTSBCQVCtDIVFUpnXSxqxMULQyJm3H86s-sqsSJ0EMU4LDDv6-0FleJaaPFOkQ0JYmQwUoB2b74OZy1bt4VSMXfwBGarXm3MmnJrHCACz78jzoH-0NJwW1c4xdVQo3eJN8GQvNvDIUnyqqDb_f3ek6k_dpnQXchbKukK5NG19xyFFBBgS4JaPDFKA47ZvqLpBRKb9P0m8PSz3jBSWZEkm3Bgo7yluDoJWArMJk1OllVMZJ372M74G3HG7LYU4Vlbcw134xO5c94vUn57VsRLZt-Ii1bZciqEqDNwnd3nwNIYo3z2GSyNRwqXTIFc5tlMu60jVyludc8GrkdhKP4xOmJXj6pHAIqB0f1XUvo3-7snIzS9kf04ZPZtbGCFmG6tJisKN9ky2YEq2nab_TdyKui1EJeW9O8QkSwh0zTzRKHLUZFLXvggxKF5f3dXQNmp4QykKqhlFahaJN4ncpwRpu8JA5OYJbQnGDQU0r7kb5iotgL1q3Bc5anxTcObuW_pk4hqCY6nSVhLG9hS1keFtjRlznyMvKzNWEz9S2C5oKcly1RTPxV00bXuEd-KyP7lZX9m3BzRYFsAIi3Z17XX1zr9wMt6x2TbUvxLhN4cxVNoTCOO3zI_astaMdeWIwm1QvPG_rs_gu7xjJ7ry97ZCru-vEa22e5MnRidd0TtrZbSnRMqb2IZFyP-GR5m_YwZSOmQ9wrzke3JBSqD0yfj4frquN7xMKnEvWdgffo0PFMr0FLyzLcj96SKedBtDlfQQuRZCp6qUiWv9fT1fOYJ_EOJCMxc8DI9UuIQ6I1hWTIk5tLd200mvJnCpjHEZC-RNy5rvXzmPTDkTb9NoenuI31dC2qdOe1G2SStra1j7kqrmrp-lX7OW-qcIbGYFYXNAoAzuUkFQNtbn_C37tu5sHB4KPmhFoRYd8bFpF3V26twVTtxRCo-bjyGzI-vQqXQ5TegYDY6bxnzKAlk52tw_f9UoUhuCFCCTjBETlz8SkKwy_2umsuSbBZXbTrgvyTC38b0z3xJivIKgv-sVI6YHs5u1PqDPZwKSLbdCMQK5Zjz4c5fK-rC2yCKJSymDJJvUSmo0XxL-g_aQch5VnhsNNllU_h9ZX18zHxTMMh_GaMBo02-20p3EFYnKBuemFqhb5TxGUiITNCuM2A4vt9I7wg6ayENLZiNNZ3plnM-zS7MCDfOf-G9f4Zdidb14swPb0UNNbSyIo1k8agP0okXKJnJrvAsUoXz1laKmJ1nG22MnwPbagVKPlDn5TPCfvu1UHyi45_u51iu6E2ZvDv95eKT-mHepiuxk7zs0ARRHR1eW5i-WWNbJ72A1nOKlRV_MWVoF48LmndeSCipyQyxlcxEO_rYCEBfTYsSV35ss1xmrve9tpvhsXuoGEV_DXhRT5ZTEsLD80d3-liDZHkZWn4ggY2ogNZQgu4iIOC3N7yPvHj7O7qeGfpXMwlGmCBEZca0z11Q6MxoVMSiSgo5z1nkmlZVyFHS_0B_28ZLDt_JDZ2mVhdFUK-Tod4jk83VNODWuGElyPDinn1E3J309jvhxu9z7WjMsMmNPhM1quN9P7EVz674KmWQoyzXPU-4yvbuZRad1TnYtfn9w1mwxIfdOgdBQ3Ph342iuEQoAuvL9pkQzRx02k9MHVrnRs20tAroqAi283eRsTKRXpkOEoHdsa4lWE-5lvoQVGhHQ)
+## Brief Implementation details
+Project is programed in `C++`, used OOP. Implementation of `Cellular Automata`. For visualisation used `python script`   
+Project tries to simulate different types of roots, with different moisture, or with obstacles (rocks).
+

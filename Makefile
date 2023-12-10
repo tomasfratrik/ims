@@ -13,6 +13,14 @@ DEPS := $(SRCS:%.cc=%.d)
 
 all: $(TARGET)
 
+PROGRAM_ARGS = -w 80 -h 80 -s 1 -m 2 -p 3
+run: $(TARGET)
+	@echo "Running programm"
+	@./$(TARGET) $(PROGRAM_ARGS) 
+	@echo "Running visualisation"
+	@./vis_data.py
+
+
 $(TARGET): $(OBJS)
 	$(CC) $(CPPLAGS) -o $@ $^
 
