@@ -14,17 +14,10 @@ Simulation::Simulation(Args *args_param, Grid *grid_param, Visualizer *visualize
     this->moisture = args_param->moisture;
 }
 
-float Simulation::calculate_moisture(int base) {
-    // float new_base = base * this->moisture;  
-    // if (new_base > 100) new_base = 100;
-    // if (new_base < 0) new_base = 0;
-    // return new_base;
-    return base;
-}
 
 CellType Simulation::root_if_hit(int percentage) {
     int random_number = rand() % 100 + 1;
-    if (random_number <= this->calculate_moisture(percentage)) {
+    if (random_number <= percentage) {
         return CellType::ROOT;
     }
     else {
