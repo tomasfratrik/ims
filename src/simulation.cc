@@ -158,7 +158,7 @@ void Simulation::run() {
         this->update_grid();
         this->current_row++;
 
-        if (this->stop_simulation || this->current_row >= this->grid->height) {
+        if (this->stop_simulation || this->current_row == this->grid->height - 1) {
             break;
         }
     }

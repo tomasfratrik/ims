@@ -71,9 +71,10 @@ Args::Args(int argc, char** argv) {
     }
 
     //check iteration after all arguments are read (maybe there was not height specified yet)
-    if (this->iterations = -1) {
+    if (this->iterations == -1) {
         // std::cout << "Iterations not specified, using height" << std::endl;
-        this->iterations = this->height - 1;
+        this->iterations = this->height;
+        // test
     }
 
     // todo check for correctness of the changes

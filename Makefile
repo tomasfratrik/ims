@@ -1,6 +1,6 @@
 # Makefile
 CC = g++
-CPPLAGS = -std=c++2a
+CPPLAGS = -std=c++2a -g
 CPPLAGS_DBG = -std=c++2a -DDEBUG -g
 
 TARGET = main
