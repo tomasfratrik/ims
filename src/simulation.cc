@@ -145,18 +145,23 @@ void Simulation::update_grid() {
 
 void Simulation::run() {
     // reset file, isnt there better way?
-    this->visualizer->data_file.open(Const::DATA_FILE_PATH);
+    // this->visualizer->data_file.open(Const::DATA_FILE_PATH);
+    // this->visualizer->data_file.close();
+
+    this->visualizer->data_file.open("data/data2.txt");
     this->visualizer->data_file.close();
 
     this->grid->place_stones();
     this->grid->place_moisture_roots();
     this->grid->expand_moisture();
     this->grid->place_root();
+    this->visualizer->draw_grid(this->grid);
 
     for (int i = 0; i < this->iterations; i++) {
-        this->visualizer->draw_grid(this->grid);
         this->update_grid();
         this->current_row++;
+        this->visualizer->draw_grid_row(this->grid, this->current_row);
+        // this->visualizer->draw_grid(this->grid);    
 
         if (this->stop_simulation || this->current_row == this->grid->height - 1) {
             break;

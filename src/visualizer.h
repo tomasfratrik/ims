@@ -24,6 +24,8 @@ class Visualizer {
         void draw(Grid grid);
         void draw_grid(Grid *grid);
         void draw_cell(Grid *grid, int x, int y);
+        void draw_grid_row(Grid *grid, int row);
+
 };
 
 #endif // __VISUALIZER_H__

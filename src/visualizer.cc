@@ -28,7 +28,8 @@ Visualizer::Visualizer(Grid *grid) {
 
 }
 void Visualizer::draw_grid(Grid *grid) {
-    this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
+    // this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
+    this->data_file.open("data/data2.txt", std::ios::app);
 
     /* always clear screen to draw new grid if -v */
     if (visulize_stdout_flg){
@@ -46,7 +47,7 @@ void Visualizer::draw_grid(Grid *grid) {
         }
     }
 
-    this->data_file << std::endl; //separate grids
+    // this->data_file << std::endl; //separate grids
     if (visulize_stdout_flg){
         std::cout << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(grid->timeout));
@@ -55,6 +56,26 @@ void Visualizer::draw_grid(Grid *grid) {
 
 
 }
+
+void Visualizer::draw_grid_row(Grid *grid, int row) {
+    // this->data_file.open(Const::DATA_FILE_PATH, std::ios::app);
+    this->data_file.open("data/data2.txt", std::ios::app);
+
+    this->data_file << std::endl; 
+    /* Go thru each cell and decide*/
+    for(int x = 0; x < this->width; x++) {
+        this->draw_cell(grid, x, row);
+    }
+
+    this->data_file << std::endl; 
+    if (visulize_stdout_flg){
+        std::cout << std::endl;
+    }
+
+    this->data_file.close();
+
+}
+
 void Visualizer::draw_cell(Grid *grid, int x, int y) {
     std::string color_symbol;
     std::string ascii_symbol;
@@ -66,33 +87,33 @@ void Visualizer::draw_cell(Grid *grid, int x, int y) {
             // check moisture 1-2
             if (m <= 1) {
                 color_symbol = Const::BROWN_SOIL;
-                ascii_symbol = ".";
+                ascii_symbol = "0";
             }
             else if (m <= 1.29) {
                 color_symbol = Const::BROWN_1;
-                ascii_symbol = "1";
+                ascii_symbol = "3";
             }
             else if (m <= 1.49) {
                 color_symbol = Const::BROWN_2;
-                ascii_symbol = "2";
+                ascii_symbol = "4";
             }
             else if (m <= 1.69) {
                 color_symbol = Const::BROWN_3;
-                ascii_symbol = "3";
+                ascii_symbol = "5";
             }
             else {
                 color_symbol = Const::BROWN_4;
-                ascii_symbol = "4";
+                ascii_symbol = "6";
             }
        
             break;
         case CellType::ROOT:
             color_symbol = Const::GREEN;
-            ascii_symbol = "@";
+            ascii_symbol = "1";
             break;
         case CellType::STONE:
             color_symbol = Const::GRAY;
-            ascii_symbol = "X";
+            ascii_symbol = "2";
             break;
         default:
             // std::cout << "VIS ERROR:"<< grid.grid[y][x].type << std::endl;
