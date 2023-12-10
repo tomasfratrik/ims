@@ -22,6 +22,9 @@ public:
     CellType type;
     float moisture;
     bool is_moisture_root = false;
+    int dst = 0;
+    int rootx;
+    int rooty;
 
     // wo which root this cell belongs if it is moisture soil
     std::pair<int, int> moisture_root_pos;

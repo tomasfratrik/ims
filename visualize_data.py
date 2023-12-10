@@ -37,9 +37,17 @@ if __name__ == "__main__":
                     data[i, j] = 0.0  # '@' is black
                 elif symbol == 'X':
                     data[i, j] = 2.0  # 'X' is blue
+                elif symbol == '1':
+                    data[i, j] = 3.0 
+                elif symbol == '2':
+                    data[i, j] = 4.0 
+                elif symbol == '3':
+                    data[i, j] = 5.0 
+                elif symbol == '4':
+                    data[i, j] = 6.0 
 
-        cmap = plt.cm.colors.ListedColormap(['black', 'white', 'red'])
-        bounds = [0, 1, 2, 3]
+        cmap = plt.cm.colors.ListedColormap(['black', 'white', 'red', '#B3D9FF','#99CCFF' , '#6699FF', '#0000CC' ])
+        bounds = [0, 1, 2, 3, 4, 5, 6, 7]
         norm = plt.cm.colors.BoundaryNorm(bounds, cmap.N)
 
         ax.imshow(data, cmap=cmap, norm=norm, interpolation='nearest')

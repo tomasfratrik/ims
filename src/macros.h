@@ -8,8 +8,8 @@
 #endif // DEBUG
 
 // this are common amongst rules
-#define BOTH_ROOTS left == CellType::ROOT && right == CellType::ROOT
-#define BOTH_SOILS left == CellType::SOIL && right == CellType::SOIL
-#define ONE_ROOT_ONE_SOIL (left == CellType::ROOT && right == CellType::SOIL) || (left == CellType::SOIL && right == CellType::ROOT)
+#define BOTH_ROOTS left->type == CellType::ROOT && right->type == CellType::ROOT
+#define BOTH_SOILS left->type == CellType::SOIL && right->type == CellType::SOIL
+#define ONE_ROOT_ONE_SOIL (left->type == CellType::ROOT && right->type == CellType::SOIL) || (left->type == CellType::SOIL && right->type == CellType::ROOT)
 
 #endif // __MACROS_H__

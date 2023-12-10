@@ -66,21 +66,25 @@ void Visualizer::draw_cell(Grid *grid, int x, int y) {
             // check moisture 1-2
             if (m <= 1) {
                 color_symbol = Const::WHITE;
+                ascii_symbol = ".";
             }
             else if (m <= 1.29) {
                 color_symbol = Const::SKY_BLUE;
+                ascii_symbol = "1";
             }
             else if (m <= 1.49) {
                 color_symbol = Const::CYAN;
+                ascii_symbol = "2";
             }
             else if (m <= 1.69) {
                 color_symbol = Const::LIGHT_BLUE;
+                ascii_symbol = "3";
             }
             else {
                 color_symbol = Const::BLUE;
+                ascii_symbol = "4";
             }
        
-            ascii_symbol = ".";
             break;
         case CellType::ROOT:
             color_symbol = Const::BLACK;

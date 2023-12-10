@@ -32,13 +32,16 @@ CellType Simulation::root_if_hit(int percentage) {
     }
 }
 
-CellType Simulation::cond_1() {
+CellType Simulation::cond_1(Cell *to_change) {
     CellType new_cell_type;
     if(this->rule == Rule::RULE_4){
         new_cell_type = CellType::ROOT;
     }
     else if (this->rule == Rule::RULE_3){
-        new_cell_type = this->root_if_hit(70);
+        int new_percentage = 70 * (to_change->moisture);
+        new_cell_type = this->root_if_hit(new_percentage);
+        // new_cell_type = this->root_if_hit(70);
+
     }
     else {
         new_cell_type = CellType::SOIL;
@@ -46,16 +49,21 @@ CellType Simulation::cond_1() {
     return new_cell_type;
 }
 
-CellType Simulation::cond_2() {
+CellType Simulation::cond_2(Cell *to_change) {
+    float moisture = to_change->moisture;
     CellType new_cell_type;
     if(this->rule == Rule::RULE_1){
-        new_cell_type = this->root_if_hit(90);
+        int new_percentage = 90 * (to_change->moisture);
+        new_cell_type = this->root_if_hit(new_percentage);
     }
     else if (this->rule == Rule::RULE_2){
-        new_cell_type = this->root_if_hit(70);
+        int new_percentage = 70 * (to_change->moisture);
+        new_cell_type = this->root_if_hit(new_percentage);
     }
     else {
-        new_cell_type = this->root_if_hit(60);
+        int new_percentage = 60 * (to_change->moisture);
+        new_cell_type = this->root_if_hit(new_percentage);
+        // new_cell_type = this->root_if_hit(60);
     }
     return new_cell_type;
 }
@@ -64,16 +72,17 @@ CellType Simulation::cond_4() {
     return CellType::SOIL;
 }
 
-CellType Simulation::determine_cell_type(CellType left, CellType right) {
+// CellType Simulation::determine_cell_type(CellType left, CellType right) {
+CellType Simulation::determine_cell_type(Cell* left, Cell* right, Cell *to_change) {
     // we dont know wether left or right is current cell
     // just to keep that in mind
 
     CellType new_cell_type;
     if (BOTH_ROOTS) {
-        new_cell_type = this->cond_1();
+        new_cell_type = this->cond_1(to_change);
     }
     else if (ONE_ROOT_ONE_SOIL) {
-        new_cell_type = this->cond_2();
+        new_cell_type = this->cond_2(to_change);
     }
     else if (BOTH_SOILS) {
         new_cell_type = this->cond_4();
@@ -91,19 +100,20 @@ void Simulation::update_grid() {
     for (int x = 0; x < this->grid->width; x++) {
         // prevent out of bounds seg fault
         
-        CellType current_cell = this->grid->grid[this->current_row][x].type;
-        if (current_cell == CellType::STONE) { // skip if stone
+        // CellType current_cell = this->grid->grid[this->current_row][x].type;
+        Cell *current_cell = &this->grid->grid[this->current_row][x];
+        if (current_cell->type == CellType::STONE) { // skip if stone
             continue;
         }
 
         // todo: optimize this (nechaj na mna asi)
         // check to right
         if (x < this->grid->width - NEXT_CELL_TO_CHECK_POSITION) {
-            CellType next_cell = this->grid->grid[this->current_row][x+NEXT_CELL_TO_CHECK_POSITION].type;
-            CellType new_cell_type = this->determine_cell_type(current_cell, next_cell);
-            CellType *to_change = &this->grid->grid[this->current_row+1][x+1].type;
-            if (*to_change != CellType::STONE){ // never change stone
-                *to_change = new_cell_type;
+            Cell *next_cell = &this->grid->grid[this->current_row][x+NEXT_CELL_TO_CHECK_POSITION];
+            Cell *to_change = &this->grid->grid[this->current_row+1][x+1];
+            CellType new_cell_type = this->determine_cell_type(current_cell, next_cell, to_change);
+            if (to_change->type != CellType::STONE){ // never change stone
+                to_change->type = new_cell_type;
                 if (new_cell_type == CellType::ROOT) {
                     this->planted_root = true;
                 }
@@ -112,11 +122,11 @@ void Simulation::update_grid() {
 
         // check left
         if (x > 1) {
-            CellType prev_cell = this->grid->grid[this->current_row][x-NEXT_CELL_TO_CHECK_POSITION].type;
-            CellType new_cell_type = this->determine_cell_type(prev_cell, current_cell);
-            CellType *to_change = &this->grid->grid[this->current_row+1][x-1].type;
-            if (*to_change != CellType::STONE){
-                *to_change = new_cell_type;
+            Cell *next_cell = &this->grid->grid[this->current_row][x-NEXT_CELL_TO_CHECK_POSITION];
+            Cell *to_change = &this->grid->grid[this->current_row+1][x-1];
+            CellType new_cell_type = this->determine_cell_type(current_cell, next_cell, to_change);
+            if (to_change->type != CellType::STONE){ // never change stone
+                to_change->type = new_cell_type;
                 if (new_cell_type == CellType::ROOT) {
                     this->planted_root = true;
                 }
@@ -138,10 +148,10 @@ void Simulation::run() {
     this->visualizer->data_file.open(Const::DATA_FILE_PATH);
     this->visualizer->data_file.close();
 
-    // this->grid->place_stones();
+    this->grid->place_stones();
     this->grid->place_moisture_roots();
     this->grid->expand_moisture();
-    // this->grid->place_root();
+    this->grid->place_root();
 
     for (int i = 0; i < this->iterations; i++) {
         this->visualizer->draw_grid(this->grid);

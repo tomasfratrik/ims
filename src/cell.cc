@@ -6,4 +6,6 @@ Cell::Cell(int x, int y) {
     this->pos = std::make_pair(x, y);
     this->moisture = DEFAULT_MOISTURE;
     this->moisture_root_pos = std::make_pair(-1, -1);
+    this->rootx = x;
+    this->rooty = y;
 }

@@ -59,34 +59,58 @@ bool Grid::is_cell_in_vector(Cell *cell, std::vector<Cell*> vector_list) {
     return false;
 }
 
+
+bool isWaterRootsChild(int rootx, int rooty, int x, int y){
+    return (rootx == x && rooty == y);
+}
+
 void Grid::expand_moisture_root(Cell *moisture_root) {
 
-    std::vector<Cell*> open_list;
-    std::vector<Cell*> close_list;
-    open_list.push_back(moisture_root);
+    float excess_moisture = moisture_root->moisture - 1.0;
+    int steps = static_cast<int>(excess_moisture * 10);
+    float set_moisture = excess_moisture - 0.1;
+    int x = moisture_root->pos.first;
+    int y = moisture_root->pos.second;
 
-    float step = 0.1;
+    for (int i = 1; i <= steps; i++) {
+        for (int j = -i; j <= i; j++) {
+            int new_y = y - i;
+            int new_x = x + j;
 
-    while(!open_list.empty()) {
-        Cell *current_cell = open_list.back();
-        open_list.pop_back();
-        close_list.push_back(current_cell);
-        int x = current_cell->pos.first;
-        int y = current_cell->pos.second;
-        if (y - 1 >= 0) {
-            Cell *cell_ptr_up = &this->grid[y - 1][x];
-            // if cell_ptr_up is in the close list vector skip it
-            if (this->is_cell_in_vector(cell_ptr_up, close_list)) {
-                cell_ptr_up->moisture += (current_cell->moisture - step) - 1 ;
-                open_list.push_back(cell_ptr_up);
+            if (new_y >= 0 && new_y < height && new_x >= 0 && new_x < width && !grid[new_y][new_x].is_moisture_root && !isWaterRootsChild(grid[new_y][new_x].rootx, grid[new_y][new_x].rooty, x, y)) {
+                grid[new_y][new_x].moisture = std::min(2.0f, grid[new_y][new_x].moisture + set_moisture);
+                grid[new_y][new_x].rootx = x;
+                grid[new_y][new_x].rooty = y;
+            }
+
+            new_y = y + i;
+            new_x = x + j;
+
+            if (new_y >= 0 && new_y < height && new_x >= 0 && new_x < width && !grid[new_y][new_x].is_moisture_root && !isWaterRootsChild(grid[new_y][new_x].rootx, grid[new_y][new_x].rooty, x, y)) {
+                grid[new_y][new_x].moisture = std::min(2.0f, grid[new_y][new_x].moisture + set_moisture);
+                grid[new_y][new_x].rootx = x;
+                grid[new_y][new_x].rooty = y;
+            }
+
+            new_y = y + j;
+            new_x = x - i;
+
+            if (new_y >= 0 && new_y < height && new_x >= 0 && new_x < width && !grid[new_y][new_x].is_moisture_root && !isWaterRootsChild(grid[new_y][new_x].rootx, grid[new_y][new_x].rooty, x, y)) {
+                grid[new_y][new_x].moisture = std::min(2.0f, grid[new_y][new_x].moisture + set_moisture);
+                grid[new_y][new_x].rootx = x;
+                grid[new_y][new_x].rooty = y;
+            }
+
+            new_y = y + j;
+            new_x = x + i;
+
+            if (new_y >= 0 && new_y < height && new_x >= 0 && new_x < width && !grid[new_y][new_x].is_moisture_root && !isWaterRootsChild(grid[new_y][new_x].rootx, grid[new_y][new_x].rooty, x, y)) {
+                grid[new_y][new_x].moisture = std::min(2.0f, grid[new_y][new_x].moisture + set_moisture);
+                grid[new_y][new_x].rootx = x;
+                grid[new_y][new_x].rooty = y;
             }
         }
-        if (y + 1 < this->height) {
-        }
-        if (x - 1 >= 0) {
-        }
-        if (x + 1 < this->width) {
-        }
+        set_moisture -= 0.1;
     }
 
 }
